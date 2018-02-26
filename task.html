@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+</head>
+<body>
+	<canvas id="myCanvas" width="500" height="500" onmousedown="getPosition('down')" onmouseup="getPosition('up')"  ondblclick="deleteOne()" onmousemove="renderPreview()" style="border:1px solid #000000;">
+	Your browser does not support the HTML5 canvas tag.
+	</canvas>
+<script>
+
+var x1,y1,x2,y2,moving,draggingThis;
+var p1,p2,p3;
+var set=[];
+var dragging=false;
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+var randomColor;
+
+function clearCanvas(){
+	ctx.clearRect(0,0,c.width,c.height);
+}
+
+function deleteOne(){
+	var p=new Point(event.x-10,event.y-10);
+	if(set.length>1)
+	{
+		var i=findOneTriangle(p);
+		if(i!=-1)
+		{
+			for(i;i<set.length-1;i++)
+				set[i]=set[i+1];
+			set.length--;
+		}
+	}
+	else
+	{
+		if(findOneTriangle(p)!=-1)
+			set.length=0;	
+	}	
+	clearCanvas();
+	drawAllTriangles();
+}
+
+function findOneTriangle(p){
+	for(var i=set.length-1;i>=0;i--)
+	{
+	//console.log(set[i]);
+	var a=set[i].a;
+	var b=set[i].b;
+	var c=set[i].c;
+	var areaSub1=getArea(a,b,p);
+	var areaSub2=getArea(b,c,p);
+	var areaSub3=getArea(c,a,p);
+	var areaMain=getArea(a,b,c);
+	if(areaMain==(areaSub1+areaSub2+areaSub3))
+		return i;
+	}
+return -1;
+}
+
+function Point(x,y){
+	this.x=x;
+	this.y=y;
+}
+
+function Triangle(a,b,c,color){
+	this.a=a;
+	this.b=b;
+	this.c=c;
+	this.color=color;
+}
+
+function renderPreview(){
+	if(dragging==true){
+		//update
+		clearCanvas();
+		if(moving==true)
+		{
+			console.log("Dragging existin one");
+			x2=event.x-10;
+			y2=event.y-10;	
+			move(draggingThis);
+		}
+		else
+		{
+			x2=event.x-10;
+			y2=event.y-10;	
+			p1=new Point((x1+x2)/2,y1);
+			p2=new Point(x1,y2);
+			p3=new Point(x2,y2);
+			drawTriangle(p1,p2,p3,randomColor);
+		}
+		drawAllTriangles();
+	}
+}
+
+
+function move(draggingThis){
+	var p1=set[draggingThis].a;
+	var p2=set[draggingThis].b;
+	var p3=set[draggingThis].c;
+	var color=set[draggingThis].color;
+	transform(p1);
+	transform(p2);
+	transform(p3);
+	set[draggingThis]=new Triangle(p1,p2,p3,color);
+	x1=x2;
+	y1=y2;	
+}
+
+function drawTriangle(p1,p2,p3,color)
+{
+	ctx.beginPath();
+		ctx.moveTo(p1.x,p1.y);
+		ctx.lineTo(p2.x,p2.y);
+		ctx.lineTo(p3.x,p3.y);
+	ctx.closePath();
+	ctx.fillStyle=color;
+	ctx.strokeStyle="#000000";
+	ctx.fill();
+	ctx.stroke();
+}
+
+function drawAllTriangles()
+{
+	console.log(set.length);
+	for(var i=0;i<set.length;i++){
+		var triangle=set[i];
+		ctx.beginPath();
+			ctx.moveTo(triangle.a.x,triangle.a.y);
+			ctx.lineTo(triangle.b.x,triangle.b.y);
+			ctx.lineTo(triangle.c.x,triangle.c.y);
+		ctx.closePath();
+		ctx.fillStyle=triangle.color;
+		ctx.fill();
+		ctx.stroke();
+	}
+}
+
+function getPosition(state)
+{
+if(state=="down")
+{
+	x1=event.x;
+	y1=event.y;
+	dragging=true;
+	randomColor=getRandomColor();
+	draggingThis=findOneTriangle(new Point(event.x-10,event.y-10));
+	if(draggingThis!=-1) 
+		moving=true;
+}
+else
+{
+	clearCanvas();
+	dragging=false;
+	x2=event.x;
+	y2=event.y;
+	if(moving==true)
+	{
+		moving=false;
+		move(draggingThis);
+	}
+	else
+	{
+		p1=new Point((x1+x2)/2,y1);
+		p2=new Point(x1,y2);
+		p3=new Point(x2,y2);
+		if(getArea(p1,p2,p3)>0)
+			set.push(new Triangle(p1,p2,p3,randomColor));
+	}
+	drawAllTriangles();
+}
+}
+
+function transform(p)
+{
+	p.x-=(x1-x2);
+	p.y-=(y1-y2);
+}
+
+function getArea(a,b,c){
+	return (Math.abs(a.x*(b.y - c.y) + b.x*(c.y - a.y) + c.x*(a.y-b.y))/2);;
+}
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+</script>
+</body>
+</html>
