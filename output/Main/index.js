@@ -38,7 +38,7 @@ var PrestoDOM_Types = require("../PrestoDOM.Types");
 var PrestoDOM_Types_DomAttributes = require("../PrestoDOM.Types.DomAttributes");
 var PrestoDOM_Util = require("../PrestoDOM.Util");
 var view = function (state) {
-    return PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.name("rootNode"), PrestoDOM_Properties.orientation("Horizontal") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("center") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.orientation("vertical") ])(Data_Functor.map(Data_Functor.functorArray)(Game_DrawTools.drawCars(state))(state.cars)), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.orientation("horizontal"), PrestoDOM_Properties.background("#0000ff"), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.margin(Data_Number_Format.toString(Data_Int.toNumber(state.myCar.x)) + ("," + (Data_Number_Format.toString(Data_Int.toNumber(state.myCar.y)) + ",0,0"))) ])([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/mycar") ]) ]) ]), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#000000"), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("centerHorizontal") ])([ PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.background("#ff0000"), PrestoDOM_Properties.gravity("center") ])([ PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.text(Data_Show.show(Data_Show.showString)(state.gameMsg)), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.textSize("28") ]) ]), PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.color("#000000"), PrestoDOM_Properties.text("Score:" + Data_Show.show(Data_Show.showInt)(state.score / 10 | 0)), PrestoDOM_Properties.textSize("28") ]) ]) ]);
+    return PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.name("rootNode"), PrestoDOM_Properties.orientation("Horizontal") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("center") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.orientation("vertical") ])(Data_Semigroup.append(Data_Semigroup.semigroupArray)([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/road") ]) ])(Data_Functor.map(Data_Functor.functorArray)(Game_DrawTools.drawCars(state))(state.cars))), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.orientation("horizontal"), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.margin(Data_Number_Format.toString(Data_Int.toNumber(state.myCar.x)) + ("," + (Data_Number_Format.toString(Data_Int.toNumber(state.myCar.y)) + ",0,0"))) ])([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/mycar") ]) ]) ]), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#000000"), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("centerHorizontal") ])([ PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.background("#ff0000"), PrestoDOM_Properties.gravity("center") ])([ PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.text(Data_Show.show(Data_Show.showString)(state.gameMsg)), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.textSize("28") ]) ]), PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.color("#000000"), PrestoDOM_Properties.text("Score:" + Data_Show.show(Data_Show.showInt)(state.score / 10 | 0)), PrestoDOM_Properties.textSize("28") ]) ]) ]);
 };
 
 //accelerate positive=accel, neg=decelerat, 0=normal
@@ -55,17 +55,13 @@ var getNewPos = function (state) {
                     return n.x;
                 })(),
                 y: (function () {
-                    var $5 = n.y > 530;
+                    var $5 = n.y > 540;
                     if ($5) {
                         return -200 | 0;
                     };
                     var $6 = accelerate === 1;
                     if ($6) {
                         return n.y + (Game_Values.carSpeed * 2 | 0) | 0;
-                    };
-                    var $7 = accelerate === (-1 | 0);
-                    if ($7) {
-                        return n.y + (Game_Values.carSpeed / 2 | 0) | 0;
                     };
                     return n.y + Game_Values.carSpeed | 0;
                 })()
@@ -87,8 +83,8 @@ var getCars = function (a) {
 };
 var collided = function (mycar) {
     return function (opponent) {
-        var $8 = mycar.x < (opponent.x + 100 | 0) && ((mycar.x + 100 | 0) >= opponent.x && (mycar.y < (opponent.y + 100 | 0) && (mycar.y + 100 | 0) >= opponent.y));
-        if ($8) {
+        var $7 = (mycar.x + 35 | 0) < (opponent.x + 150 | 0) && ((mycar.x + 150 | 0) >= (opponent.x + 35 | 0) && ((mycar.y + 35 | 0) < (opponent.y + 175 | 0) && (mycar.y + 150 | 0) >= (opponent.y + 35 | 0)));
+        if ($7) {
             return true;
         };
         return false;
@@ -103,77 +99,72 @@ var main = (function () {
     var validate = function (left) {
         return function (up) {
             return function (right) {
-                return function (down) {
-                    return function (oldState) {
-                        if (oldState.gameOver === true) {
-                            return oldState;
-                        };
-                        if (Data_Array["null"](collisionTest(oldState)) === false) {
-                            return {
-                                cars: oldState.cars,
-                                myCar: oldState.myCar,
-                                elapsed: oldState.elapsed,
-                                score: oldState.score,
-                                gameOver: true,
-                                gameMsg: "Game Over!"
-                            };
-                        };
-                        if (left || (right || (up || down))) {
-                            return {
-                                cars: (function () {
-                                    if (up) {
-                                        return getNewPos(oldState)(1);
-                                    };
-                                    if (down) {
-                                        return getNewPos(oldState)(-1 | 0);
-                                    };
-                                    return getNewPos(oldState)(0);
-                                })(),
-                                myCar: (function () {
-                                    if (left) {
-                                        return {
-                                            x: (function () {
-                                                var $17 = oldState.myCar.x === 5;
-                                                if ($17) {
-                                                    return 5;
-                                                };
-                                                return oldState.myCar.x - 5 | 0;
-                                            })(),
-                                            y: oldState.myCar.y
-                                        };
-                                    };
-                                    if (right) {
-                                        return {
-                                            x: (function () {
-                                                var $19 = oldState.myCar.x === 895;
-                                                if ($19) {
-                                                    return 895;
-                                                };
-                                                return oldState.myCar.x + 5 | 0;
-                                            })(),
-                                            y: oldState.myCar.y
-                                        };
-                                    };
-                                    return oldState.myCar;
-                                })(),
-                                elapsed: oldState.elapsed + 1 % 767 | 0,
-                                score: oldState.score + 1 | 0,
-                                gameOver: false,
-                                gameMsg: oldState.gameMsg
-                            };
-                        };
-                        if (Data_Boolean.otherwise) {
-                            return {
-                                cars: getNewPos(oldState)(0),
-                                myCar: oldState.myCar,
-                                elapsed: oldState.elapsed + 1 % 767 | 0,
-                                score: oldState.score + 1 | 0,
-                                gameOver: false,
-                                gameMsg: oldState.gameMsg
-                            };
-                        };
-                        throw new Error("Failed pattern match at Main line 64, column 5 - line 79, column 189: " + [ left.constructor.name, up.constructor.name, right.constructor.name, down.constructor.name, oldState.constructor.name ]);
+                return function (oldState) {
+                    if (oldState.gameOver === true) {
+                        return oldState;
                     };
+                    if (Data_Array["null"](collisionTest(oldState)) === false) {
+                        return {
+                            cars: oldState.cars,
+                            myCar: oldState.myCar,
+                            elapsed: oldState.elapsed,
+                            score: oldState.score,
+                            gameOver: true,
+                            gameMsg: "Game Over!"
+                        };
+                    };
+                    if (left || (right || up)) {
+                        return {
+                            cars: (function () {
+                                if (up) {
+                                    return getNewPos(oldState)(1);
+                                };
+                                return getNewPos(oldState)(0);
+                            })(),
+                            myCar: (function () {
+                                if (left) {
+                                    return {
+                                        x: (function () {
+                                            var $14 = oldState.myCar.x === 5;
+                                            if ($14) {
+                                                return 5;
+                                            };
+                                            return oldState.myCar.x - 5 | 0;
+                                        })(),
+                                        y: oldState.myCar.y
+                                    };
+                                };
+                                if (right) {
+                                    return {
+                                        x: (function () {
+                                            var $16 = oldState.myCar.x === 895;
+                                            if ($16) {
+                                                return 895;
+                                            };
+                                            return oldState.myCar.x + 5 | 0;
+                                        })(),
+                                        y: oldState.myCar.y
+                                    };
+                                };
+                                return oldState.myCar;
+                            })(),
+                            elapsed: oldState.elapsed + 1 % 767 | 0,
+                            score: oldState.score + 1 | 0,
+                            gameOver: false,
+                            gameMsg: oldState.gameMsg
+                        };
+                    };
+                    if (Data_Boolean.otherwise) {
+                        return {
+                            cars: getNewPos(oldState)(0),
+                            myCar: oldState.myCar,
+                            elapsed: oldState.elapsed + 1 % 767 | 0,
+                            score: oldState.score + 1 | 0,
+                            gameOver: false,
+                            gameMsg: oldState.gameMsg
+                        };
+                    };
+                    throw new Error("Failed pattern match at Main line 62, column 5 - line 76, column 189: " + [ left.constructor.name, up.constructor.name, right.constructor.name, oldState.constructor.name ]);
                 };
             };
         };
@@ -194,7 +185,7 @@ var main = (function () {
             gameMsg: "CarRace 2D!"
         };
         var v2 = PrestoDOM_Util.render(view)(initialState)();
-        var v3 = v2.updateState(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Data_Functor.map(FRP_Behavior.functorABehavior(FRP_Event.functorEvent))(validate)(FRP_Behavior_Keyboard.key(37)))(FRP_Behavior_Keyboard.key(38)))(FRP_Behavior_Keyboard.key(39)))(FRP_Behavior_Keyboard.key(40)))(v2.stateBeh))(FRP_Event_Time.animationFrame)();
+        var v3 = v2.updateState(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Data_Functor.map(FRP_Behavior.functorABehavior(FRP_Event.functorEvent))(validate)(FRP_Behavior_Keyboard.key(37)))(FRP_Behavior_Keyboard.key(38)))(FRP_Behavior_Keyboard.key(39)))(v2.stateBeh))(FRP_Event_Time.animationFrame)();
         return Data_Unit.unit;
     };
 })();

@@ -18,7 +18,6 @@ drawCars state car =
               , width $ V 100
               , height $ V 100
               , orientation "horizontal"
-              , background "#000000"
               , gravity "center"
               , margin ((toString (toNumber (car.x)))<>","<>(toString ((toNumber (car.y))))<>",0,0")
               ]

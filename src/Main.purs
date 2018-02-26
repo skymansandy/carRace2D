@@ -30,8 +30,8 @@ getCars a =
     pure {id: ("c" <> (toString (toNumber a))), x: (200*lane)-175, y:450-(a*250)}
 
 collided::MyCar -> Car -> Boolean
-collided mycar opponent =  if (mycar.x<(opponent.x+100)) && ((mycar.x+100)>=opponent.x) &&
-                              (mycar.y<(opponent.y+100)) && ((mycar.y+100)>=opponent.y)
+collided mycar opponent =  if ((mycar.x+35)<(opponent.x+150)) && ((mycar.x+150)>=(opponent.x+35)) &&
+                              ((mycar.y+35)<(opponent.y+175)) && ((mycar.y+150)>=(opponent.y+35))
                               then true
                               else false
 
@@ -41,12 +41,10 @@ collisionTest state = filter (collided state.myCar) state.cars
 --accelerate positive=accel, neg=decelerat, 0=normal
 getNewPos::State->Int->Array Car
 getNewPos state accelerate=(\n->{id:n.id, x:if(n.y==(-100)) then (200*(((n.x+state.elapsed)`mod`4)+1)-175) else n.x
-                                , y:if(n.y>530)
-                                      then -200 
+                                , y:if(n.y>540)
+                                      then -200
                                       else if accelerate==1 then n.y+(carSpeed*2)
-                                                            else if accelerate==(-1)
-                                                                    then n.y+(carSpeed/2)
-                                                                    else n.y+carSpeed}) <$> state.cars
+                                                            else n.y+carSpeed}) <$> state.cars
 
 --main
 main :: forall a. Eff(random :: RANDOM, console :: CONSOLE, frp ::FRP, dom ::DOM |a) Unit
@@ -57,16 +55,15 @@ main = do
     let initialState = { cars:carPool, myCar:myCar, elapsed:0, score:0, gameOver:false, gameMsg: "CarRace 2D!"}
     { stateBeh, updateState } <- render view initialState
     _<- updateState
-      (validate <$> (key 37) <*> (key 38) <*> (key 39) <*> (key 40) <*> stateBeh)
+      (validate <$> (key 37) <*> (key 38) <*> (key 39) <*> stateBeh)
       (animationFrame)
     pure unit
   where
-    validate left up right down oldState
+    validate left up right oldState
       | oldState.gameOver==true = oldState
       | null(collisionTest oldState) ==false= {cars:oldState.cars, myCar:oldState.myCar, elapsed:oldState.elapsed, score:oldState.score, gameOver:true, gameMsg: "Game Over!"}
-      | left||right||up ||down    = {cars: if up then (getNewPos oldState 1)
-                                                 else if down then (getNewPos oldState (-1))
-                                                              else (getNewPos oldState 0)
+      | left||right||up    = {cars: if up then (getNewPos oldState 1)
+                                          else (getNewPos oldState 0)
                                   , myCar:  if left
                                               then {x:if oldState.myCar.x==5 then 5 else oldState.myCar.x-5, y:oldState.myCar.y}
                                               else if right
@@ -92,7 +89,6 @@ view state =
       relativeLayout
       [ height Match_Parent
       , width $ V 1000
-      , background "#ffffff"
       , orientation "vertical"
       , gravity "center"
       ]
@@ -104,14 +100,20 @@ view state =
         , background "#ffffff"
         , orientation "vertical"
         ]
-        (drawCars state <$> state.cars)
+        ([
+          imageView
+          [ width $ V 1000
+          , height Match_Parent
+          , margin "0,0,0,0"
+          , imageUrl "assets/road"
+          ]
+        ]<>(drawCars state <$> state.cars))
         ,
         --our car
         linearLayout
         [ width $ V 100
         , height $ V 100
         , orientation "horizontal"
-        , background "#0000ff"
         , gravity "center"
         , margin ((toString (toNumber (state.myCar.x)))<>","<>(toString ((toNumber (state.myCar.y))))<>",0,0")
         ]
