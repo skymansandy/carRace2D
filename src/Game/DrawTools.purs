@@ -3,8 +3,8 @@ module Game.DrawTools where
 import Data.Function(($))
 import Data.Semigroup((<>))
 import PrestoDOM.Core(Prop)
-import PrestoDOM.Elements(linearLayout,textView)
-import PrestoDOM.Properties(background, gravity, height, id_, margin, orientation, text, textSize, width)
+import PrestoDOM.Elements(linearLayout,textView, imageView)
+import PrestoDOM.Properties(background, gravity,imageUrl, height, id_, margin, orientation, text, textSize, width)
 import PrestoDOM.Types
 
 import Data.Int (toNumber)
@@ -23,11 +23,10 @@ drawCars state car =
               , margin ((toString (toNumber (car.x)))<>","<>(toString ((toNumber (car.y))))<>",0,0")
               ]
               [
-                textView
-                [ width $ V 30
-                , height $ V 30
-                , text "hi"
-                , margin "10,0,0,0"
-                , textSize "40"
-                ]
+                imageView
+                 [ width $ V 150
+                 , height $ V 150
+                 , margin "0,0,0,0"
+                 , imageUrl "assets/opcar"
+                 ]
               ]

@@ -17,8 +17,8 @@ import Game.DrawTools (drawCars)
 import Game.Types (Car, State, MyCar)
 import Game.Values (carSpeed, totalCars)
 import PrestoDOM.Core (PrestoDOM)
-import PrestoDOM.Elements (linearLayout, textView, relativeLayout)
-import PrestoDOM.Properties (background, color, gravity, margin, height, name, orientation, text, textSize, width)
+import PrestoDOM.Elements (linearLayout, textView, relativeLayout, imageView)
+import PrestoDOM.Properties (background, color, imageUrl, gravity, margin, height, name, orientation, text, textSize, width)
 import PrestoDOM.Types (Length(..))
 import PrestoDOM.Util (render)
 
@@ -116,12 +116,11 @@ view state =
         , margin ((toString (toNumber (state.myCar.x)))<>","<>(toString ((toNumber (state.myCar.y))))<>",0,0")
         ]
         [
-         textView
-          [ width $ V 40
-          , height $ V 40
-          , text "Me"
-          , margin "10,0,0,0"
-          , textSize "40"
+          imageView
+          [ width $ V 150
+          , height $ V 150
+          , margin "0,0,0,0"
+          , imageUrl "assets/mycar"
           ]
         ]
       ],
