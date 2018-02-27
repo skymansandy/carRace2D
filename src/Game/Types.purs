@@ -2,6 +2,7 @@ module Game.Types where
 
 type Car = {
   id    :: String
+, tag   :: Int
 , x     :: Int
 , y     :: Int
 }

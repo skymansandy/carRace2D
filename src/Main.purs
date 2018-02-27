@@ -6,7 +6,7 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Random (RANDOM, randomInt)
 import DOM (DOM)
-import Data.Array ((..), filter, null, length)
+import Data.Array ((..), filter, null)
 import Data.Int (toNumber)
 import Data.Number.Format (toString)
 import Data.Traversable (traverse)
@@ -26,11 +26,11 @@ import PrestoDOM.Util (render)
 --produce cars
 getCars ::forall a. Int -> Eff(random :: RANDOM | a) Car
 getCars a =
-  randomInt 1 4 >>= \lane ->
-    pure {id: ("c" <> (toString (toNumber a))), x: (200*lane)-175, y:450-(a*250)}
+  randomInt 1 5 >>= \lane ->
+    pure {id: ("c" <> (toString (toNumber a))), tag:a, x: (200*lane)-175, y:0-(a*350)}
 
 collided::MyCar -> Car -> Boolean
-collided mycar opponent =  if ((mycar.x+35)<(opponent.x+150)) && ((mycar.x+150)>=(opponent.x+35)) &&
+collided mycar opponent =  if ((mycar.x+35)<(opponent.x+150)) && ((mycar.x+140)>=(opponent.x+35)) &&
                               ((mycar.y+35)<(opponent.y+175)) && ((mycar.y+150)>=(opponent.y+35))
                               then true
                               else false
@@ -40,11 +40,12 @@ collisionTest state = filter (collided state.myCar) state.cars
 
 --accelerate positive=accel, neg=decelerat, 0=normal
 getNewPos::State->Int->Array Car
-getNewPos state accelerate=(\n->{id:n.id, x:if(n.y==(-100)) then (200*(((n.x+state.elapsed)`mod`4)+1)-175) else n.x
-                                , y:if(n.y>540)
-                                      then -200
+getNewPos state accelerate=(\n->{id:n.id, tag:n.tag, x:if(n.y==(-(n.tag*350))) then (200*(((n.x+state.elapsed)`mod`5)+1)-175) else n.x
+                                , y:if(n.y>700)
+                                      then 0-(n.tag*350)
                                       else if accelerate==1 then n.y+(carSpeed*2)
-                                                            else n.y+carSpeed}) <$> state.cars
+                                                             else if accelerate==(-1) then n.y+(carSpeed-1)
+                                                                                      else n.y+carSpeed}) <$> state.cars
 
 --main
 main :: forall a. Eff(random :: RANDOM, console :: CONSOLE, frp ::FRP, dom ::DOM |a) Unit
@@ -55,15 +56,16 @@ main = do
     let initialState = { cars:carPool, myCar:myCar, elapsed:0, score:0, gameOver:false, gameMsg: "CarRace 2D!"}
     { stateBeh, updateState } <- render view initialState
     _<- updateState
-      (validate <$> (key 37) <*> (key 38) <*> (key 39) <*> stateBeh)
+      (validate <$> (key 37) <*> (key 38) <*> (key 39)  <*> (key 40)<*> stateBeh)
       (animationFrame)
     pure unit
   where
-    validate left up right oldState
+    validate left up right down oldState
       | oldState.gameOver==true = oldState
-      | null(collisionTest oldState) ==false= {cars:oldState.cars, myCar:oldState.myCar, elapsed:oldState.elapsed, score:oldState.score, gameOver:true, gameMsg: "Game Over!"}
-      | left||right||up    = {cars: if up then (getNewPos oldState 1)
-                                          else (getNewPos oldState 0)
+      | null(collisionTest oldState) ==false= {cars:oldState.cars, myCar:oldState.myCar, elapsed:oldState.elapsed, score:oldState.score, gameOver:true, gameMsg: "Game Over. press F5 to restart!"}
+      | left||right||up||down  = {cars: if up then (getNewPos oldState 1)
+                                              else if down then (getNewPos oldState (-1))
+                                                           else (getNewPos oldState 0)
                                   , myCar:  if left
                                               then {x:if oldState.myCar.x==5 then 5 else oldState.myCar.x-5, y:oldState.myCar.y}
                                               else if right
@@ -79,7 +81,7 @@ view :: forall w i. State -> PrestoDOM i w
 view state =
    --main layout
   linearLayout
-    [ height Match_Parent
+    [ height $ V 768
     , width Match_Parent
     , background "#ffffff"
     , name "rootNode"
@@ -87,7 +89,7 @@ view state =
     ]
     [
       relativeLayout
-      [ height Match_Parent
+      [ height $ V 768
       , width $ V 1000
       , orientation "vertical"
       , gravity "center"
@@ -95,7 +97,7 @@ view state =
       [
         --game container
         relativeLayout
-        [ height Match_Parent
+        [ height $ V 768
         , width $ V 1000
         , background "#ffffff"
         , orientation "vertical"
@@ -134,13 +136,14 @@ view state =
       , orientation "vertical"
       , gravity "centerHorizontal"
       ]
-      [ 
+      [
          --title
         linearLayout
         [ width Match_Parent
         , height $ V 40
         , background "#ff0000"
         , gravity "center"
+        , margin "0,300,0,0"
         ]
         [
           textView
@@ -148,7 +151,7 @@ view state =
           , height $ V 40
           , text $ show state.gameMsg
           , gravity "center"
-          , textSize "28"
+          , textSize "30"
           ]
         ],
         textView
@@ -156,7 +159,8 @@ view state =
         , height $ V 40
         , color "#000000"
         , text $ "Score:"<>show (state.score/10)
-        , textSize "28"
+        , margin "60,30,0,0"
+        , textSize "30"
         ]
       ]
     ]

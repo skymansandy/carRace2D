@@ -1,8 +1,8 @@
 module Game.Values where
 
 totalCars::Int
-totalCars=5
+totalCars=7
 
 carSpeed::Int
-carSpeed=4
+carSpeed=5
 

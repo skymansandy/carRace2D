@@ -1,6 +1,6 @@
 "use strict";
-var totalCars = 5;
-var carSpeed = 4;
+var totalCars = 7;
+var carSpeed = 5;
 module.exports = {
     totalCars: totalCars,
     carSpeed: carSpeed
