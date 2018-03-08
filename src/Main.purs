@@ -18,7 +18,7 @@ import Game.Types (Car, State, MyCar)
 import Game.Values (carSpeed, totalCars)
 import PrestoDOM.Core (PrestoDOM)
 import PrestoDOM.Elements (linearLayout, textView, relativeLayout, imageView)
-import PrestoDOM.Properties (background, color, gravity, height, imageUrl, margin, name, orientation, text, textSize, visibility, width)
+import PrestoDOM.Properties (background, color, gravity, height, imageUrl, margin, name, orientation, text, textSize, width)
 import PrestoDOM.Types (Length(..))
 import PrestoDOM.Util (render)
 
@@ -166,7 +166,7 @@ view state =
         ],
         textView
         [ width $ V 200
-        , height $ V 40
+        , height $ V 100
         , color "#000000"
         , text $ "Score:"<>show (state.score/10)
         , margin "60,35,0,0"
