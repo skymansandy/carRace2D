@@ -11,6 +11,7 @@ import Data.Int (toNumber)
 import Data.Number.Format (toString)
 
 
+--draw function
 drawCars::forall t1 t18 t3 t4. t1-> { id::String, tag::Int, x :: Int , y :: Int | t18}-> VDom (Array (Prop t4)) t3
 drawCars state car =
               linearLayout

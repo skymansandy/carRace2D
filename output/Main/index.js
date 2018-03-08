@@ -37,11 +37,19 @@ var PrestoDOM_Properties = require("../PrestoDOM.Properties");
 var PrestoDOM_Types = require("../PrestoDOM.Types");
 var PrestoDOM_Types_DomAttributes = require("../PrestoDOM.Types.DomAttributes");
 var PrestoDOM_Util = require("../PrestoDOM.Util");
+
+//layout
 var view = function (state) {
-    return PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(768)), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.name("rootNode"), PrestoDOM_Properties.orientation("Horizontal") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(768)), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("center") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(768)), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.orientation("vertical") ])(Data_Semigroup.append(Data_Semigroup.semigroupArray)([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/road") ]) ])(Data_Functor.map(Data_Functor.functorArray)(Game_DrawTools.drawCars(state))(state.cars))), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.orientation("horizontal"), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.margin(Data_Number_Format.toString(Data_Int.toNumber(state.myCar.x)) + ("," + (Data_Number_Format.toString(Data_Int.toNumber(state.myCar.y)) + ",0,0"))) ])([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/mycar") ]) ]) ]), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#000000"), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("centerHorizontal") ])([ PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.background("#ff0000"), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.margin("0,300,0,0") ])([ PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.text(Data_Show.show(Data_Show.showString)(state.gameMsg)), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.textSize("30") ]) ]), PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.color("#000000"), PrestoDOM_Properties.text("Score:" + Data_Show.show(Data_Show.showInt)(state.score / 10 | 0)), PrestoDOM_Properties.margin("60,30,0,0"), PrestoDOM_Properties.textSize("30") ]) ]) ]);
+    return PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.name("rootNode"), PrestoDOM_Properties.orientation("Horizontal") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("center") ])([ PrestoDOM_Elements.relativeLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.background("#ffffff"), PrestoDOM_Properties.orientation("vertical") ])(Data_Semigroup.append(Data_Semigroup.semigroupArray)([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(1000)), PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/road") ]) ])(Data_Functor.map(Data_Functor.functorArray)(Game_DrawTools.drawCars(state))(state.cars))), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.orientation("horizontal"), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.margin(Data_Number_Format.toString(Data_Int.toNumber(state.myCar.x)) + ("," + (Data_Number_Format.toString(Data_Int.toNumber(state.myCar.y)) + ",0,0"))) ])([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/mycar") ]) ]), PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.margin(Data_Number_Format.toString(Data_Int.toNumber(state.myCar.x) - 20.0) + ("," + (Data_Number_Format.toString(Data_Int.toNumber(state.myCar.y) - 50.0) + ",0,0"))), (function () {
+        var $3 = state.gameOver === true;
+        if ($3) {
+            return PrestoDOM_Properties.imageUrl("assets/fire");
+        };
+        return PrestoDOM_Properties.imageUrl("assets/blank");
+    })() ]) ]), PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.height(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.background("#000000"), PrestoDOM_Properties.orientation("vertical"), PrestoDOM_Properties.gravity("centerHorizontal") ])([ PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.background("#ff0000"), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.margin("0,300,0,0") ])([ PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(PrestoDOM_Types_DomAttributes.Match_Parent.value), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.text(Data_Show.show(Data_Show.showString)(state.gameMsg)), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.textSize("35") ]) ]), PrestoDOM_Elements.textView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(200)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(40)), PrestoDOM_Properties.color("#000000"), PrestoDOM_Properties.text("Score:" + Data_Show.show(Data_Show.showInt)(state.score / 10 | 0)), PrestoDOM_Properties.margin("60,35,0,0"), PrestoDOM_Properties.textSize("30") ]) ]) ]);
 };
 
-//accelerate positive=accel, neg=decelerat, 0=normal
+//accelerate +ve=accel, -ve=decelerate, 0=normal
 var getNewPos = function (state) {
     return function (accelerate) {
         return Data_Functor.map(Data_Functor.functorArray)(function (n) {
@@ -75,7 +83,7 @@ var getNewPos = function (state) {
     };
 };
 
-//produce cars
+//produce initial cars
 var getCars = function (a) {
     return function __do() {
         var lane = Control_Monad_Eff_Random.randomInt(1)(5)();
@@ -87,6 +95,8 @@ var getCars = function (a) {
         };
     };
 };
+
+//check collision of our car with an opponent car
 var collided = function (mycar) {
     return function (opponent) {
         var $8 = (mycar.x + 35 | 0) < (opponent.x + 150 | 0) && ((mycar.x + 140 | 0) >= (opponent.x + 35 | 0) && ((mycar.y + 35 | 0) < (opponent.y + 175 | 0) && (mycar.y + 150 | 0) >= (opponent.y + 35 | 0)));
@@ -96,6 +106,8 @@ var collided = function (mycar) {
         return false;
     };
 };
+
+//check collision with opponent cars
 var collisionTest = function (state) {
     return Data_Array.filter(collided(state.myCar))(state.cars);
 };
@@ -174,29 +186,28 @@ var main = (function () {
                                 gameMsg: oldState.gameMsg
                             };
                         };
-                        throw new Error("Failed pattern match at Main line 63, column 5 - line 78, column 189: " + [ left.constructor.name, up.constructor.name, right.constructor.name, down.constructor.name, oldState.constructor.name ]);
+                        throw new Error("Failed pattern match at Main line 64, column 5 - line 79, column 189: " + [ left.constructor.name, up.constructor.name, right.constructor.name, down.constructor.name, oldState.constructor.name ]);
                     };
                 };
             };
         };
     };
     return function __do() {
-        var v = Control_Monad_Eff_Console.log("Running")();
-        var v1 = Data_Traversable.traverse(Data_Traversable.traversableArray)(Control_Monad_Eff.applicativeEff)(getCars)(Data_Array.range(1)(Game_Values.totalCars))();
+        var v = Data_Traversable.traverse(Data_Traversable.traversableArray)(Control_Monad_Eff.applicativeEff)(getCars)(Data_Array.range(1)(Game_Values.totalCars))();
         var myCar = {
             x: 225,
-            y: 500
+            y: 450
         };
         var initialState = {
-            cars: v1,
+            cars: v,
             myCar: myCar,
             elapsed: 0,
             score: 0,
             gameOver: false,
             gameMsg: "CarRace 2D!"
         };
-        var v2 = PrestoDOM_Util.render(view)(initialState)();
-        var v3 = v2.updateState(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Data_Functor.map(FRP_Behavior.functorABehavior(FRP_Event.functorEvent))(validate)(FRP_Behavior_Keyboard.key(37)))(FRP_Behavior_Keyboard.key(38)))(FRP_Behavior_Keyboard.key(39)))(FRP_Behavior_Keyboard.key(40)))(v2.stateBeh))(FRP_Event_Time.animationFrame)();
+        var v1 = PrestoDOM_Util.render(view)(initialState)();
+        var v2 = v1.updateState(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Control_Apply.apply(FRP_Behavior.applyABehavior(FRP_Event.functorEvent))(Data_Functor.map(FRP_Behavior.functorABehavior(FRP_Event.functorEvent))(validate)(FRP_Behavior_Keyboard.key(37)))(FRP_Behavior_Keyboard.key(38)))(FRP_Behavior_Keyboard.key(39)))(FRP_Behavior_Keyboard.key(40)))(v1.stateBeh))(FRP_Event_Time.animationFrame)();
         return Data_Unit.unit;
     };
 })();

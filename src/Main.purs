@@ -3,7 +3,7 @@ module Main where
 import Prelude
 
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
+import Control.Monad.Eff.Console (CONSOLE)
 import Control.Monad.Eff.Random (RANDOM, randomInt)
 import DOM (DOM)
 import Data.Array ((..), filter, null)
@@ -18,27 +18,29 @@ import Game.Types (Car, State, MyCar)
 import Game.Values (carSpeed, totalCars)
 import PrestoDOM.Core (PrestoDOM)
 import PrestoDOM.Elements (linearLayout, textView, relativeLayout, imageView)
-import PrestoDOM.Properties (background, color, imageUrl, gravity, margin, height, name, orientation, text, textSize, width)
+import PrestoDOM.Properties (background, color, gravity, height, imageUrl, margin, name, orientation, text, textSize, visibility, width)
 import PrestoDOM.Types (Length(..))
 import PrestoDOM.Util (render)
 
 
---produce cars
+--produce initial cars
 getCars ::forall a. Int -> Eff(random :: RANDOM | a) Car
 getCars a =
   randomInt 1 5 >>= \lane ->
     pure {id: ("c" <> (toString (toNumber a))), tag:a, x: (200*lane)-175, y:0-(a*350)}
 
+--check collision of our car with an opponent car
 collided::MyCar -> Car -> Boolean
 collided mycar opponent =  if ((mycar.x+35)<(opponent.x+150)) && ((mycar.x+140)>=(opponent.x+35)) &&
                               ((mycar.y+35)<(opponent.y+175)) && ((mycar.y+150)>=(opponent.y+35))
                               then true
                               else false
 
+--check collision with opponent cars
 collisionTest::State -> Array Car
 collisionTest state = filter (collided state.myCar) state.cars
 
---accelerate positive=accel, neg=decelerat, 0=normal
+--accelerate +ve=accel, -ve=decelerate, 0=normal
 getNewPos::State->Int->Array Car
 getNewPos state accelerate=(\n->{id:n.id, tag:n.tag, x:if(n.y==(-(n.tag*350))) then (200*(((n.x+state.elapsed)`mod`5)+1)-175) else n.x
                                 , y:if(n.y>700)
@@ -50,13 +52,12 @@ getNewPos state accelerate=(\n->{id:n.id, tag:n.tag, x:if(n.y==(-(n.tag*350))) t
 --main
 main :: forall a. Eff(random :: RANDOM, console :: CONSOLE, frp ::FRP, dom ::DOM |a) Unit
 main = do
-    _ <- log "Running"
     carPool <- (traverse getCars (1 .. totalCars))
-    let myCar={x:225,y:500}
+    let myCar={x:225,y:450}
     let initialState = { cars:carPool, myCar:myCar, elapsed:0, score:0, gameOver:false, gameMsg: "CarRace 2D!"}
     { stateBeh, updateState } <- render view initialState
     _<- updateState
-      (validate <$> (key 37) <*> (key 38) <*> (key 39)  <*> (key 40)<*> stateBeh)
+      (validate <$> (key 37) <*> (key 38) <*> (key 39)  <*> (key 40) <*> stateBeh)
       (animationFrame)
     pure unit
   where
@@ -77,11 +78,13 @@ main = do
                                   , gameMsg: oldState.gameMsg}
       | otherwise               = {cars:(getNewPos oldState 0), myCar:oldState.myCar, elapsed:oldState.elapsed+1`mod`767, score:oldState.score+1, gameOver:false, gameMsg: oldState.gameMsg}
 
+
+--layout
 view :: forall w i. State -> PrestoDOM i w
 view state =
    --main layout
   linearLayout
-    [ height $ V 768
+    [ height Match_Parent
     , width Match_Parent
     , background "#ffffff"
     , name "rootNode"
@@ -89,7 +92,7 @@ view state =
     ]
     [
       relativeLayout
-      [ height $ V 768
+      [ height Match_Parent
       , width $ V 1000
       , orientation "vertical"
       , gravity "center"
@@ -97,7 +100,7 @@ view state =
       [
         --game container
         relativeLayout
-        [ height $ V 768
+        [ height Match_Parent
         , width $ V 1000
         , background "#ffffff"
         , orientation "vertical"
@@ -111,7 +114,7 @@ view state =
           ]
         ]<>(drawCars state <$> state.cars))
         ,
-        --our car
+        --collision image
         linearLayout
         [ width $ V 100
         , height $ V 100
@@ -120,12 +123,19 @@ view state =
         , margin ((toString (toNumber (state.myCar.x)))<>","<>(toString ((toNumber (state.myCar.y))))<>",0,0")
         ]
         [
+          --our car
           imageView
           [ width $ V 150
           , height $ V 150
           , margin "0,0,0,0"
           , imageUrl "assets/mycar"
           ]
+        ],
+        imageView
+        [ width $ V 150
+        , height $ V 150
+        , margin ((toString (toNumber (state.myCar.x)-20.0))<>","<>(toString ((toNumber (state.myCar.y)-50.0)))<>",0,0")
+        , if state.gameOver == true then imageUrl "assets/fire" else imageUrl "assets/blank"
         ]
       ],
       --score board
@@ -140,7 +150,7 @@ view state =
          --title
         linearLayout
         [ width Match_Parent
-        , height $ V 40
+        , height $ V 100
         , background "#ff0000"
         , gravity "center"
         , margin "0,300,0,0"
@@ -151,15 +161,15 @@ view state =
           , height $ V 40
           , text $ show state.gameMsg
           , gravity "center"
-          , textSize "30"
+          , textSize "35"
           ]
         ],
         textView
-        [ width $ V 100
+        [ width $ V 200
         , height $ V 40
         , color "#000000"
         , text $ "Score:"<>show (state.score/10)
-        , margin "60,30,0,0"
+        , margin "60,35,0,0"
         , textSize "30"
         ]
       ]

@@ -8,6 +8,8 @@ var PrestoDOM_Elements = require("../PrestoDOM.Elements");
 var PrestoDOM_Properties = require("../PrestoDOM.Properties");
 var PrestoDOM_Types = require("../PrestoDOM.Types");
 var PrestoDOM_Types_DomAttributes = require("../PrestoDOM.Types.DomAttributes");
+
+//draw function
 var drawCars = function (state) {
     return function (car) {
         return PrestoDOM_Elements.linearLayout([ PrestoDOM_Properties.id_(car.id), PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(100)), PrestoDOM_Properties.orientation("horizontal"), PrestoDOM_Properties.gravity("center"), PrestoDOM_Properties.margin(Data_Number_Format.toString(Data_Int.toNumber(car.x)) + ("," + (Data_Number_Format.toString(Data_Int.toNumber(car.y)) + ",0,0"))) ])([ PrestoDOM_Elements.imageView([ PrestoDOM_Properties.width(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.height(new PrestoDOM_Types_DomAttributes.V(150)), PrestoDOM_Properties.margin("0,0,0,0"), PrestoDOM_Properties.imageUrl("assets/opcar") ]) ]);
